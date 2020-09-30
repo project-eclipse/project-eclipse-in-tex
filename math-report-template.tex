@@ -1,0 +1,53 @@
+\documentclass{scrartcl}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{Noto Sans CJK KR}
+\newfontfamily\sectionfont{Noto Sans CJK KR Medium}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{Insert Title Here}
+\author{Insert Author Here}
+\date{}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+Some text
+\end{document}
