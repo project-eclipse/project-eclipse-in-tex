@@ -1,0 +1,31 @@
+\documentclass[10pt]{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\begin{document}
+\definecolor{ududff}{rgb}{0.30196078431372547,0.30196078431372547,1}
+\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\clip(-2.5674179770099075,-1.168085090715204) rectangle (5.1038225843670055,4.817546558072152);
+\draw [line width=1pt] (0,4)-- (0,0);
+\draw [line width=1pt] (0,0)-- (3,0);
+\draw [line width=1pt] (3,0)-- (0,4);
+\draw [line width=1pt] (1,1) circle (1cm);
+\begin{scriptsize}
+\draw[color=uuuuuu] (-0.2,-0.1) node {$A$};
+\draw[color=uuuuuu] (0,4.2) node {$B$};
+\draw[color=xdxdff] (3.2,0) node {$C$};
+\draw [fill=ududff] (1,1) circle (1.5pt);
+\draw[color=ududff] (1.0704012578134492,1.184027345985) node {$I$};
+\draw [fill=uuuuuu] (1.8,1.6) circle (1.5pt);
+\draw[color=uuuuuu] (1.9,1.8) node {$D$};
+\draw [fill=uuuuuu] (0,1) circle (1.5pt);
+\draw[color=uuuuuu] (-0.2,1) node {$F$};
+\draw [fill=uuuuuu] (1,0) circle (1.5pt);
+\draw[color=uuuuuu] (1,-0.2) node {$E$};
+\end{scriptsize}
+\end{tikzpicture}
+\end{document}

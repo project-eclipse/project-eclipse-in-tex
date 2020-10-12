@@ -1,0 +1,23 @@
+\documentclass[10pt]{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\begin{document}
+\definecolor{qqwuqq}{rgb}{0,0.39215686274509803,0}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\begin{axis}[
+x=1cm,y=1cm,
+axis lines=middle,
+xmin=-2,
+xmax=2,
+ymin=-2,
+ymax=2,
+ticks=none,]
+\clip(-2,-2) rectangle (2,2);
+\draw[line width=1.5pt,color=black,smooth,samples=100,domain=-2:-0.4] plot(\x,{1/(\x)});
+\draw[line width=1.5pt,color=black,smooth,samples=100,domain=0.4:2] plot(\x,{1/(\x)});
+\end{axis}
+\end{tikzpicture}
+\end{document}
