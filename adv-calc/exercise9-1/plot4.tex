@@ -1,0 +1,12 @@
+\documentclass[10pt]{article}
+\usepackage{pstricks-add}
+\pagestyle{empty}
+\begin{document}
+\psset{xunit=0.1cm,yunit=0.1cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=1pt,arrowsize=2pt 2,arrowinset=0.25}
+\begin{pspicture*}(-35,-35)(35,35)
+\multips(0,-30)(0,10){7}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(-35,0)(35,0)}
+\multips(-30,0)(10,0){7}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(0,-35)(0,35)}
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=10,Dy=10,ticksize=-2pt 0,subticks=2]{->}(0,0)(-35,-35)(35,35)
+\parametricplot[linewidth=2pt,plotstyle=curve]{-10}{20}{2.718281828459045^(-t)*COS(t)|2.718281828459045^(-t)*SIN(t)}
+\end{pspicture*}
+\end{document}

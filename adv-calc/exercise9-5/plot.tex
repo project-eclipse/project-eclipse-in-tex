@@ -1,0 +1,40 @@
+\documentclass[10pt]{article}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+\begin{document}
+\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{qqwuqq}{rgb}{0,0.39215686274509803,0}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\begin{axis}[
+x=1cm,y=1cm,
+axis lines=middle,
+ymajorgrids=true,
+xmajorgrids=true,
+xmin=-5.040000000000002,
+xmax=5.040000000000002,
+ymin=-6.94,
+ymax=6.94,
+xtick={-5,-4,...,5},
+ytick={-6,-5,...,6},]
+\clip(-5.04,-6.94) rectangle (5.04,6.94);
+\draw[line width=2pt,color=qqwuqq,smooth,samples=100,domain=-5.040000000000002:5.040000000000002] plot(\x,{cos(((\x))*180/pi)});
+\draw [line width=2pt] (0.9,0.6216099682706644)-- (0.9,0);
+\begin{scriptsize}
+\draw[color=qqwuqq] (-4.86,0.19) node {$f$};
+\draw [fill=uuuuuu] (-1.5707963267924883,2.408357017356847E-12) circle (2pt);
+\draw[color=uuuuuu] (-1.42,0.39) node {$A$};
+\draw [fill=uuuuuu] (1.5707963267948875,0) circle (2pt);
+\draw[color=uuuuuu] (1.74,0.39) node {$B$};
+\draw [fill=xdxdff] (0.9,0.6216099682706644) circle (2.5pt);
+\draw[color=xdxdff] (1.06,1.05) node {$P$};
+\draw [fill=uuuuuu] (0.9,0) circle (2pt);
+\draw[color=uuuuuu] (1.14,0.39) node {$P'$};
+\draw[color=black] (0.64,0.55) node {$h$};
+\end{scriptsize}
+\end{axis}
+\end{tikzpicture}
+\end{document}

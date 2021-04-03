@@ -1,0 +1,20 @@
+\definecolor{qqqqff}{rgb}{0,0,1}
+\definecolor{zzttff}{rgb}{0.6,0.2,1}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\begin{axis}[
+x=0.75cm,y=0.75cm,
+axis lines=middle,
+xmin=-3,
+xmax=3,
+ymin=-3,
+ymax=3,
+ticks=none,]
+\clip(-3,-3) rectangle (3,3);
+\draw [line width=1.5pt,color=zzttff] (0,0) circle (0.75cm);
+\draw [samples=50,rotate around={0:(0,0)},xshift=0cm,yshift=0cm,line width=1.5pt,color=qqqqff,domain=-3:3)] plot (\x,{(\x)^2/2/0.5});
+\begin{scriptsize}
+\draw[color=zzttff] (1.7,-1.2) node {$x^2+y^2=1$};
+\draw[color=qqqqff] (-0.5,2) node {$y=x^2$};
+\end{scriptsize}
+\end{axis}
+\end{tikzpicture}

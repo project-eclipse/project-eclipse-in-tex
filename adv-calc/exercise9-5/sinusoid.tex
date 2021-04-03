@@ -1,0 +1,25 @@
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\definecolor{xdxdff}{rgb}{0.49019607843137253,0.49019607843137253,1}
+\definecolor{qqwuqq}{rgb}{0,0.39215686274509803,0}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+\begin{axis}[
+x=1.5cm,y=1.5cm,
+axis lines=middle,
+xmin=-2.5,
+xmax=2.5,
+ymin=-0.5,
+ymax=1.5,
+ticks=none,]
+\clip(-2.5,-0.5) rectangle (2.5,1.5);
+\draw[line width=1.5pt,color=qqwuqq,smooth,samples=100,domain=-1.58:1.58] plot(\x,{cos(((\x))*180/pi)});
+\draw [line width=1pt,dash pattern=on 2pt off 2pt] (0.9,0.6216099682706644)-- (0.9,0);
+\begin{scriptsize}
+\draw[color=uuuuuu] (-1.8,0.2) node {$-\phi$};
+\draw[color=uuuuuu] (1.7,0.2) node {$\phi$};
+\draw [fill=xdxdff] (0.9,0.6216099682706644) circle (2pt);
+\draw[color=xdxdff] (1,0.8) node {$P$};
+\draw [fill=uuuuuu] (0.9,0) circle (2pt);
+\draw[color=uuuuuu] (1,-0.3) node {$P'$};
+\end{scriptsize}
+\end{axis}
+\end{tikzpicture}

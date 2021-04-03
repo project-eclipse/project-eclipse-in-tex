@@ -1,0 +1,143 @@
+\documentclass{scrartcl}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{csquotes}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{pstricks-add}
+\usepackage{pst-3dplot,pst-func,pst-math}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{Noto Sans CJK KR}
+\newfontfamily\sectionfont{Noto Sans CJK KR Medium}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{9장 1절 연습문제 풀이}
+\author{Project Eclipse (19092 손량)}
+\date{}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{쓸데없는 이야기: 데카르트 곡선 실수 전체에서 매개화하기}
+책에서 데카르트 곡선의 매개화를 설명할 때, 다음과 같은 떡밥을 남겼었다. 여기에서 이 떡밥을 회수해 보자.
+\begin{displayquote}
+실수 전체 구간에서 정의된 매개화도 가능하다.
+\end{displayquote}
+매개화를 시도하기 전에, 왜 책에 나온 방법대로는 실수 전체에서 매개화할 수 없는지 살펴볼 필요가 있다. 직선 \(y=tx\)와의 교점을 이용하는 방법에 대해서는, 데카르트 곡선의 점근선이 \(y=-x\)와 평행하다는 사실이 문제가 되었다. 만약 \(t=-1\)인 경우, 데카르트 곡선은 직선과 원점 이외에 아무 교점도 갖지 않고, 이 때문에 매개화가 불가능해진다. 그렇다면 실수 전체에서 매개화하기 위해서는 어떻게 해야 할까?\\[1\baselineskip]
+직선과의 교점을 구하는 방법은 좋은 아이디어이고, 다른 도형과의 교점을 따질 경우 교점이 유일하지 않기 때문에 사용하기 힘든 방법이다.\footnote{이렇게 생각했지만, 매개화할 수 없다는 것은 단정지을 수 없을 것이다.} 직선과의 교점을 이용한다는 아이디어는 그대로 가져갈 때, 직선이 점근선이 되는 것을 막으려면 어떻게 해야 할까? 여기에서는 다른 좌표축을 잡는 방법을 생각하였다.\\[1\baselineskip]
+\(y=tx\)와 같이 기울기 꼴로 직선을 나타내면, 수직선을 제외한 모든 직선을 표현할 수 있다. 원래의 촤표축 \(x\)와 \(y\)를 이용하면, 기울기의 기준이 \(x\)축이므로 \(x\)축과 수직한 \(y\)축을 표한할 수 없다. 문제가 되는 \(y=-x\)를 표현할 수 없게 하려면 \(x'\)축이 \(y=x\)이 되도록 잡으면 되고, 표현할 수 없는 직선이 \(y'\)축, 즉 \(y=-x\)이므로 교점이 없는 경우를 피할 수 없다. 이 방법을 이용하면 실수 전체에서 매개화할 수 있다.
+\begin{center}
+\newrgbcolor{ududff}{0.30196078431372547 0.30196078431372547 1}
+\psset{xunit=1cm,yunit=1cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=1pt,arrowsize=2pt 2,arrowinset=0.25}
+\begin{pspicture*}(-3.5,-3.5)(3.5,3.5)
+\multips(0,-6)(0,1){14}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(-8.92,0)(8.92,0)}
+\multips(-8,0)(1,0){18}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(0,-6.92)(0,6.92)}
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=1,Dy=1,ticksize=-2pt 0,subticks=2]{->}(0,0)(-3.5,-3.5)(3.5,3.5)
+\psplotImp[linewidth=1.5pt,stepFactor=0.5](-10,-8)(9,7){1*y^3-3*x^1*y^1+1*x^3}
+\psline[linewidth=0.5pt]{->}(-3,-3)(3,3)
+\psline[linewidth=0.5pt]{->}(3,-3)(-3,3)
+\psplot[linewidth=1.5pt,linecolor=blue]{-3.92}{3.92}{(-0--2*x)/1}
+\begin{scriptsize}
+\rput[bl](3.08,3.2){$x'$}
+\rput[bl](-3.1,3.2){$y'$}
+\rput[bl](0.5,3){\blue{$y'=tx'$}}
+\end{scriptsize}
+\end{pspicture*}
+\end{center}
+실제로 매개화를 하려면 \(x'\)축과 \(y'\)축으로 만들어진 좌표계의 직선 \(y'=tx'\)을 \(x\)축과 \(y\)축으로 만들어진 좌표계 기준으로 바꾸어야 한다. 여기에서는 탄젠트의 덧셈정리를 사용할 수 있다. 다음과 같은 식이 성립한다.
+\[\tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}\]
+이를 이용하면, 직선 \(y'=tx'\)를 \(y=ux\)로 다음과 같이 나타낼 수 있다.\footnote{정말 이 결과가 맞는지 확인하고 싶다면, \(t\)를 무한대로 보내는 극한을 머릿속으로 취해 보자.}
+\[y=\frac{t+\tan(\pi/4)}{1-t\tan(\pi/4)}x=\frac{1+t}{1-t}x\]
+이제 책에 나온것처럼 계산해도 되고, 귀찮다면 그냥 \(t\)에 구한 기울기를 대입해도 된다. 나머지는 직접 해보자.
+
+\section{연습문제 풀이}
+\subsection{2번: 눈으로 보고 지나가는 문제}
+\subsubsection{\(X(t)=(t^2,t^3)\)}
+착각하기 쉽지만, 이 곡선은 그래프 \(y=x^{3/2}\)와 같지 않다는 사실은 알고 넘어가자.
+\begin{center}
+\psset{xunit=1cm,yunit=1cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=1pt,arrowsize=2pt 2,arrowinset=0.25}
+\begin{pspicture*}(-3.5,-3.5)(3.5,3.5)
+\multips(0,-5)(0,1){11}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(-6.953298226164082,0)(6.953298226164086,0)}
+\multips(-6,0)(1,0){14}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(0,-5.40985310421284)(0,5.409853104212858)}
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=1,Dy=1,ticksize=-2pt 0,subticks=2]{->}(0,0)(-3.5,-3.5)(3.5,3.5)
+\parametricplot[linewidth=1.5pt,plotstyle=ccurve]{-10}{10}{t^(2)|t^(3)}
+\begin{scriptsize}
+\rput[bl](3.19602272727273,-5.33190133037692){$a$}
+\end{scriptsize}
+\end{pspicture*}
+\end{center}
+\(t=t_0\)에서 접선의 방정식은 다음과 같다.
+\[X(t_0)+sX'(t_0)=({t_0}^2,{t_0}^3)+s(2{t_0},3{t_0}^2)\]
+
+\subsubsection{\(X(t)=(2\cos t,\sin t)\)}
+이미 익숙해질 대로 익숙해진 타원이다.
+\begin{center}
+\psset{xunit=1cm,yunit=1cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=1pt,arrowsize=2pt 2,arrowinset=0.25}
+\begin{pspicture*}(-3.5,-3.5)(3.5,3.5)
+\multips(0,-5)(0,1){11}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(-6.953298226164083,0)(6.953298226164085,0)}
+\multips(-6,0)(1,0){14}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(0,-5.40985310421284)(0,5.409853104212858)}
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=1,Dy=1,ticksize=-2pt 0,subticks=2]{->}(0,0)(-3.5,-3.5)(3.5,3.5)
+\rput{0}(0,0){\psellipse[linewidth=1.5pt](0,0)(2,1)}
+\end{pspicture*}
+\end{center}
+\(t=t_0\)에서 접선의 방정식은 다음과 같다.
+\[X(t_0)+sX'(t_0)=(2\cos t_0,\sin t_0)+s(-2\sin t_0,\cos t_0)\]
+
+\subsubsection{\(X(t)=e^{-t}(\cos t,\sin t)\)}
+지수적으로 뻗어 나가는 나선이다.
+\begin{center}
+\psset{xunit=0.1cm,yunit=0.1cm,algebraic=true,dimen=middle,dotstyle=o,dotsize=5pt 0,linewidth=1pt,arrowsize=2pt 2,arrowinset=0.25}
+\begin{pspicture*}(-35,-35)(35,35)
+\multips(0,-30)(0,10){7}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(-35,0)(35,0)}
+\multips(-30,0)(10,0){7}{\psline[linestyle=dashed,linecap=1,dash=1.5pt 1.5pt,linewidth=0.4pt,linecolor=lightgray]{c-c}(0,-35)(0,35)}
+\psaxes[labelFontSize=\scriptstyle,xAxis=true,yAxis=true,Dx=10,Dy=10,ticksize=-2pt 0,subticks=2]{->}(0,0)(-35,-35)(35,35)
+\parametricplot[linewidth=2pt,plotstyle=curve]{-10}{20}{2.718281828459045^(-t)*COS(t)|2.718281828459045^(-t)*SIN(t)}
+\end{pspicture*}
+\end{center}
+\(t=t_0\)에서 접선의 방정식은 다음과 같다.
+\[X(t_0)+sX'(t_0)=e^{-t_0}(\cos t_0,\sin t_0)+se^{-t_0}(-\cos t_0-\sin t_0,-\sin t_0+\cos t_0)\]
+
+\subsubsection{\(X(t)=(t\cos t,t\sin t,t)\)}
+`크기'가 커지면서 뻗어 나가는 나선이다.
+\begin{center}
+\begin{pspicture}(-3.5, -3.5)(3.5, 5)
+\psset{xunit=0.25cm,yunit=0.25cm}
+\pstThreeDCoor[xMin=-15,xMax=15,yMin=-15,yMax=15,zMax=20]
+\parametricplotThreeD[xPlotpoints=1000,plotstyle=curve,algebraic](0,12000){(t/1000) * cos(t/1000) | (t/1000) * sin(t/1000) | t/1000}
+\end{pspicture}
+\end{center}
+\end{document}

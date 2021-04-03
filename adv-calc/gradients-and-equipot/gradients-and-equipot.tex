@@ -1,0 +1,104 @@
+\documentclass{scrartcl}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{pstricks-add}
+\usepackage{pst-3dplot,pst-func,pst-math}
+\usepackage{wrapfig}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{Noto Sans CJK KR}
+\newfontfamily\sectionfont{Noto Sans CJK KR Medium}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{등위면과 그래디언트의 기하학적 의미}
+\author{Project Eclipse (손량)}
+\date{}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\grad}{\text{grad}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+미분계수의 의미를 그래프의 기울기라고 알고 있고, \(\grad\)를 이러한 이유로 접평면과 상관 있다고 추측하다가 정작 의미를 이해하는 데에는 어려움을 겪었다.\footnote{어려움을 겪지 않았다면 굳이 이걸 읽으려고 할 필요는 없을 것 같다.} 여기에서는 \(\grad\)가 실제로 무엇인지 살펴볼 것이다.
+
+\section{'그래프'와 '등위면'}
+고등수학에서 보통 좌표평면 위에 곡선이 그려져 있으면 이를 `그래프'라고 부른다. 지금까지는 크게 신경 쓰지 않았지만, 우리가 `그래프'라고 부르는 것은 크게 두 가지로 나눌 수 있다. \textbf{함수의 그래프}와 \textbf{음함수의 그래프}이다. 이들 각각을 보여주는 대표적인 예로 함수 \(y=x^2\)과 원의 방정식 \(x^2+y^2=1\)을 그린 것을 생각할 수 있을 것이다.
+\begin{wrapfigure}[13]{l}{5cm}
+  \centering
+  \input{plot1}
+\end{wrapfigure}
+음함수는 정의에 따라, 어떤 다변수함수의 0-등위면으로 이해할 수 있다. 예를 들어, 원의 방정식 \(x^2+y^2=1\)은 함수
+\[f(x,y)=x^2+y^2-1\]
+의 0-등위면으로 생각할 수 있다. 여기서 중요한 점은, 굳이 음함수가 아니여도 그래프를 등위면으로 생각할 수 있다는 것이다. 예를 들어, 앞서 말한 함수 \(y=x^2\)은 다음과 같은 2변수함수의 0-등위면으로 생각할 수 있다. 다르게 말하면, 음함수의 그래프는 \textbf{등위면의 그래프}라고 할 수 있다는 것이다.\footnote{음함수의 그래프와 등위면의 그래프는 설명을 위해 지어낸 말이기 때문에 공식적인 수학적 주장에서는 clarification이 필요하다.}
+\[f(x,y)=x^2-y\]
+이러한 변환은 다변수\textbf{함수의 그래프} 접평면을 구하는 데 사용될 것이다.
+
+\section{그래디언트의 기하학적 의미}
+미적분학 2+ 책에서는 \(\grad\)의 기하학적 의미를 다음과 같이 설명하고 있다.
+\begin{theorem}
+\(\grad f(P)\)는 점 \(P\)가 속하는 등위면 \(S:=\{X\in U|f(X)=f(P)\}\)에 수직이다. (\(\grad f(P)\neq\mathbf{0}\))
+\end{theorem}
+등위면에 수직인 벡터라는 것은 곧 점 \(P\)의 접평면과 수직이라는 것이고, 여기서 \(\grad f(P)\)가 등위면 \(f(X)=f(P)\)의 그래프의 접평면 법선벡터임을 알 수 있다. 즉, \(\grad f(P)\)는 \textbf{등위면의 그래프}의 접평면을 나타낸다. 이를 좀 더 명확히 하기 위해, 몇가지 예시를 살펴보자.
+
+\subsection{2차원: 함수의 그래프}
+간단한 함수 \(y=f(x)=x^2\)의 접평면을 구해 보자.\footnote{여기서 평면은 흔히 말하는 3차원의 `평평한 판'이 아니라 초평면을 의미한다. 이 글에서는 굳이 초평면과 평면을 구분하지 않을 것이다.} 이때 접평면은 접선의 모습으로 나타날 것이다. 여기에서, 그냥 \(\grad f(p)\)를 구하면 아무것도 할 수 없다. 왜냐하면 \(\grad f(p)=(2p)\)이고, 이를 법선벡터로 생각하면 다음과 같이 의미 없는 `평면의 방정식'이 나오기 때문이다.
+\[2t\cdot(x-p)=0\]
+이 `평면'에 있는 점은 오직 \((p,p^2)\)뿐이다. 어디서 잘못된 것일까?\\[1\baselineskip]
+문제는 정리를 적절하지 않은 방법으로 사용했다는 것에 있다. 앞서 말했듯 \(\grad\)는 등위면의 접평면이라고 했다. 다르게 말하면 그래프 \(y=f(x)\)의 접평면을 구하기 위해서는 다음과 같이 정의한 함수의 \(\grad\)를 구해야 한다.
+\[g(x,y)=f(x)-y\]
+\(P=(x_0,y_0)\)이라고 잡고 계산을 해 보면 \(\grad g(P)=(2x_0,-1)\)이고, 접평면의 방정식은 따라서 다음과 같다.
+\[(2x_0,-1)\cdot(x-x_0,y-y_0)=0\]
+이를 전개하면 다음과 같은 식을 얻는다.
+\[y=2x_0(x-x_0)+y_0\]
+이는 고등수학에서 말하는 접선의 방정식과 같다.
+
+\subsection{2차원: 등위면의 그래프}
+데카르트 곡선 \(x^3+y^3-3xy=0\)의 접평면을 구해 보자. 우선 이 음함수를 다음 다변수함수의 0-등위면으로 생각할 수 있다.
+\[f(x,y)=x^3+y^3-3xy\]
+계산을 하면
+\[\grad f(x_0,y_0)=3({x_0}^2-y_0,{y_0}^2-x_0)\]
+따라서 접평면의 방정식은
+\[3({x_0}^2-y_0,{y_0}^2-x_0)\cdot(x-x_0,y-y_0)=0\]
+
+\subsection{3차원: 등위면의 그래프}
+함수의 그래프는 간단하기 때문에, 수업 시간에 다룬 데카르트 곡선을 만드는 함수의 접평면을 구해 보자.
+\[f(x,y)=x^3+y^3-3xy\]
+\begin{center}
+  \input{plot2}
+\end{center}
+
+\end{document}
