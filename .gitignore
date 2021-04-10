@@ -294,3 +294,6 @@ TSWLatexianTemp*
 
 # End of https://www.toptal.com/developers/gitignore/api/tex
 .kile/
+
+# don't commit pdfs
+*.pdf
