@@ -1,0 +1,100 @@
+\documentclass{scrartcl}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{float}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{수학세미나 HW B 풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{삼각형의 분할비}
+우선 삼각형을 다음과 같이 잡자.
+\begin{figure}[H]
+\centering
+\include{triangle.tex}
+\end{figure}
+주어진 식을 변형하면 다음과 같은 식이 나온다.
+\begin{align}\label{prop}\frac{l\Ray{OA}+m\Ray{OB}}{l+m}+\frac{n\Ray{OC}}{l+m}=0\end{align}
+여기서, \(\Ray{OC}\)는 \(\dfrac{l\Ray{OA}+m\Ray{OB}}{l+m}\)의 상수배이므로, \(R\)은 \(\Seg{AB}\)의 \(m:l\) 내분점이다. 비슷한 논리로 다음을 보일 수 있다.
+\begin{itemize}
+ \item \(P\)는 \(\Seg{BC}\)의 \(n:m\) 내분점
+ \item \(Q\)는 \(\Seg{CA}\)의 \(l:n\) 내분점
+\end{itemize}
+한편, (\ref{prop})의 식에 의하면 \(\Seg{CO}:\Seg{OR}=(l+m):n\)이므로, 삼각형의 넓이 비를 구할 수 있다.
+\[\triangle CAR:\triangle CBR=\frac{l+m+n}{l+m}\triangle OCA:\frac{l+m+n}{l+m}\triangle OBC=\triangle OCA:\triangle OBC=m:l\]
+또한, 비슷한 방식으로 \(\Seg{AO}:\Seg{OP}=(m+n):l\)이므로 다음을 얻는다.
+\[\triangle OCA:\triangle OAB=m:n\]
+따라서 원하는 비율을 얻는다.
+\begin{align}\label{area}\triangle OBC:\triangle OCA:\triangle OAB=l:m:n\end{align}
+
+\section{직접 숫자 넣어서 계산하기}
+우선 \(\Ray{OC}\)를 구하자.
+\[\Ray{OC}=-4\Ray{OA}-\frac{3}{2}\Ray{OB}\]
+이를 \(\Ray{OA}\)와 내적하자.
+\[\Ray{OA}\cdot\Ray{OC}=\Ray{OA}\cdot\left( -4\Ray{OA}-\frac{3}{2}\Ray{OB} \right)=-4\left|\Ray{OA}\right|^2-\frac{3}{2}\Ray{OA}\cdot\Ray{OB}=-12-\frac{3}{2}\Ray{OA}\cdot\Ray{OB}=-3\]
+따라서 \(\Ray{OA}\cdot\Ray{OB}=-6\)이고, 한편 \(\Ray{OA}\)와 \(\Ray{OB}\)의 사잇각 \(\theta\)에 대해 \(\Ray{OA}\cdot\Ray{OB}=\Seg{OA}\cdot\Seg{OB}\cdot\cos\theta\)이므로, \(\cos\theta=-\sqrt{3}/2\)이다. \(\sin\theta=1/2\)이므로, 넓이를 다음과 같이 구할 수 있다.
+\[\triangle OAB=\frac{1}{2}\Seg{OA}\cdot\Seg{OB}\cdot\sin\theta=\sqrt{3}\]
+한편, (\ref{area})의 식을 사용하면 \(\triangle OBC:\triangle OCA:\triangle OAB=8:3:2\)이고, 따라서 구하는 넓이는 \(\dfrac{13\sqrt{3}}{2}\)이다.
+
+\section{넓이비와 벡터합}
+앞서 구한 (\ref{area})의 관계가 \(l\Ray{OA}+m\Ray{OB}+n\Ray{OC}=\Ray{O}\)에서 나왔음을 생각하면, 당연히 \(s_A \Ray{OA}+s_B \Ray{OB}+s_C \Ray{OC}\)의 결과는 영벡터이다... 라고 하면서 끝내고 싶지만 그래도 증명을 해보자.
+
+\(s_B:s_A=\triangle OCA:\triangle OBC=\triangle RCA:\triangle RCB=\Seg{AR}:\Seg{BR}\)이고, \(\triangle ABC:\triangle OAB=(s_A+s_B+s_C):s_C=\Seg{CR}:\Seg{OR}\)이므로, 다음이 성립함을 알 수 있다.
+\begin{align}\label{OR}\Ray{OR}=\frac{s_A\Ray{OA}+s_B\Ray{OB}}{s_A+s_B}\end{align}
+\begin{align}\label{CO}\Seg{CO}:\Seg{OR}=(s_A+s_B):s_C\end{align}
+(\ref{OR}), (\ref{CO})의 관계를 사용하면 다음과 같은 식을 얻는다.
+\[\Ray{OR}-\frac{s_C\Ray{CO}}{s_A+s_B}=\Ray{OR}+\frac{s_C\Ray{OC}}{s_A+s_B}=\frac{s_A\Ray{OA}+s_B\Ray{OB}}{s_A+s_B}+\frac{s_C\Ray{OC}}{s_A+s_B}=\Ray{O}\]
+이 식을 변형하면 주어진 식 \(s_A \Ray{OA}+s_B \Ray{OB}+s_C \Ray{OC}\)의 결과는 영벡터임을 알 수 있다.
+
+\end{document}

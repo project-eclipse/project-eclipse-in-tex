@@ -1,0 +1,115 @@
+\documentclass{scrartcl}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{수학세미나 문제 A, B 풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{문제 A}
+\subsection{P의 자취}
+\(\Seg{AP}-\Seg{PQ}=\Seg{AP}-\left(1-\Seg{OP}\right)=b\)이고, 따라서 다음과 같은 식을 얻는다.
+\[
+\Seg{AP}+\Seg{OP}=b+1
+\]
+이 식만 보면 \(A\)와 \(O\)를 초점으로 하고, 장축의 길이가 \(b+1\)인 타원이라고 섣불리 생각하기 쉽다. 하지만 문제의 조건에 따라 타원의 일부만이 생길 수도 있다. 구하는 것은 \(P\)의 자취이므로, \(P\)가 원 밖으로 나갈 수 없기 때문에 타원이 `잘리는' 것이다. 이때 타원의 중심과 \(P\) 사이의 거리 최댓값은 \((b+1)/2\)이고, 타원의 중심과 \(O\) 사이의 거리는 \(a/2\)이므로 타원이 `잘리지 않을' 조건은 다음과 같다.
+\begin{align}\label{wholeellipse}\frac{a+b+1}{2}\leq 1\end{align}
+
+\subsection{타원의 넓이 구하기}
+문제의 조건 \(0<b\leq 1-a\)는 (\ref{wholeellipse})의 식이 만족하도록 한다. `잘린' 타원의 넓이를 구하게 시킬 정도로 출제자가 악랄\footnote{이 조건이 없어도 문제가 엄청 어려워지지는 않는다. 물론 타원의 넓이 공식을 쓰는게 아니라 직접 적분을 해야 하겠지만...} 않았던 것 같다. 앞서 구한 타원을 방정식 형태로 나타내면 다음과 같다.
+\[
+\frac{x^2}{\left( \dfrac{b+1}{2} \right)^2}+\frac{y^2}{\left( \dfrac{b+1}{2} \right)^2-\left( \dfrac{a}{2} \right)^2}=1
+\]
+타원의 넓이를 구하는 것이 문제인데, 고등학교 교육과정에서 (명시적으로) 타원의 넓이에 대해 배운 적이 없기 때문에 직접 증명해야 한다.
+
+\begin{theorem}
+다음 방정식이 그리는 타원의 넓이는 \(ab\pi\)이다.
+\[\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\]
+\end{theorem}
+\begin{proof}
+앞서 주어진 타원은 원점 대칭이므로, \(y>0\)인 부분의 넓이만 구해서 2배를 해도 된다. 타원의 `윗 부분'이 그리는 곡선은 다음과 같이 나타낼 수 있다.
+\[y=b\sqrt{1-\frac{x^2}{a^2}}\]
+넓이를 구하기 위해, \(-a\)부터 \(a\)까지 정적분하자.\footnote{간단한 치환 적분이지만, 2학년 미적분학 시간에 배운 정적분과 `축소/확대' 이동을 떠올리면 더 직관적으로 이해될 것이다.}
+\begin{align}\label{integral}\int^a_{-a} b\sqrt{1-\frac{x^2}{a^2}}dx=ab\int^1_{-1}\sqrt{1-t^2}dt\end{align}
+\(t=\cos u\)로 치환해서 적분해도 되긴 하지만, 잠깐 관심법을 써보자. \(\sqrt{1-t^2}\)을 -1부터 1까지 적분한 것은 반지름이 1인 반원의 넓이를 구한 것과 같다. 따라서 (\ref{integral})의 적분값은 \(ab\pi/2\)이고, 이를 2배하면 원하는 결과인 \(ab\pi\)를 얻는다.
+\end{proof}
+이 공식을 사용하면 넓이는 다음과 같다.
+\[\frac{b+1}{4}\sqrt{(b+1)^2-a^2}\pi\]
+이는 \(b\)에 대한 명백한 증가함수이므로, \(b=1-a\)일 때 넓이가 최대이다. 따라서 면적의 최댓값은 다음과 같다.
+\[S_\mathrm{max}=\frac{2-a}{4}\sqrt{(2-a)^2-a^2}\pi\]
+
+\section{문제 B}
+\subsection{\(x+y=3\)과의 교점}
+주어진 타원의 기울기가 -1인 접선은 \(y=-x\pm\sqrt{5}\)이므로 주어진 범위에 제한된 점 \((x,y)\)에 대해 \(x+y\)의 최댓값은 \(\sqrt{5}\)이다. 따라서 \(x+y\)는 \(\sqrt{5}\)보다 큰 값이 될 수 없으므로 \(x+y=3\)을 만족할 수 없다.
+
+\subsection{기울기의 범위}
+점 \((4,-1)\)을 지나면서 타원에 접하는 직선은 \(y=-1\)과 \(y=-\dfrac{2}{3}(x-4)-1\)이다. \(-\dfrac{2}{3}\leq m\leq 0\)인 직선은 타원과 한 점 이상에서 만나므로, 주어진 부등식을 만족한다. 따라서 원하는 값의 범위는 \(m>0\) 또는 \(m<-\dfrac{2}{3}\)이다.
+
+\subsection{최대/최소 문제}
+\subsubsection{대수적 풀이}
+
+
+\subsubsection{기하적 풀이}
+기하학적인 방법을 사용하여 풀어보자. 주어진 식을 보면, 직선과 점 사이 거리 공식 처럼 생겼다.
+\[\frac{x-y-5}{x+y-3}=\frac{\dfrac{x-y-5}{\sqrt{1^2+(-1)^2}}}{\dfrac{x+y-3}{\sqrt{1^2+1^2}}}\]
+게다가 \(y=\pm x\pm\sqrt{5}\) (복부호 동순 아님)이 타원의 접선임을 생각하면, \(|x+y|,|x-y|\leq\sqrt{5}\)이고, 다음과 같이 절댓값을 붙여도 무방하며 그냥 점과 직선 사이 거리로 생각해도 된다.
+\begin{align}\label{slope}\frac{x-y-5}{x+y-3}=\frac{\dfrac{|x-y-5|}{\sqrt{1^2+(-1)^2}}}{\dfrac{|x+y-3|}{\sqrt{1^2+1^2}}}=\frac{\text{\(x-y-5=0\)과 \((x,y)\)의 거리}}{\text{\(x+y-3=0\)과 \((x,y)\)의 거리}}\end{align}
+한편, 직선 \(x-y-5=0\)과 \(x+y-3=0\)의 교점은 앞서 등장한 \((4,-1)\)이고\footnote{그렇다! 세상은 그래도 아름다웠던 것이다...}, 두 직선은 서로 수직이다. 이 문제는 두 직선이 수직\footnote{수직이 아니었다면 벡터의 기저 분해를 시도할 수도 있기는 한데, 그럴 바에는 CBS 부등식을 사용하는 것이 나을 듯 하다.} 것이 중요했는데, 그냥 두 직선으로 `새로운 좌표축'을 정할 수 있기 때문이다.
+\begin{figure}[H]
+\centering
+\include{plot.tex}
+\end{figure}
+또한, (\ref{slope})의 식은 \(x'\)축과 \(y'\)축을 기준으로 했을 때 \(O'\)을 지나는 직선의 기울기와 같다고 볼 수 있고, 이때 기울기의 최대와 최소는 위 그림에 표시해 놓았다. 최소일 때에는 \(xy\) 좌표계에서 \(y=-1\)로 나타나는 \(y'=x'\)일 때이고, 최대일 때에는 \(y=-\dfrac{2}{3}(x-4)-1\)로 나타나는 \(y'=5x'\)이다.\footnote{이렇게 직선을 `변환'할 때 탄젠트 덧셈정리를 쓰면 된다.} 따라서 구하는 최소는 1이고, 최대는 5이다.
+\end{document}

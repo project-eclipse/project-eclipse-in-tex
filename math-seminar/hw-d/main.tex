@@ -1,0 +1,102 @@
+\documentclass{scrartcl}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{수학세미나 HW D 풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{위치벡터 구하기}
+\begin{figure}[H]
+\centering
+\include{plot.tex}
+\end{figure}
+문제에서 주어진 조건만으로 해결 가능하다.
+\begin{align*}
+\Ray{BP}&=\Ray{BO}+\Ray{OP}=-\vec{b}+\vec{p} \\
+\Ray{PH}&=\Ray{PO}+\Ray{OH}=-\vec{p}+(\vec{a}\cdot\vec{p})\vec{a}
+\end{align*}
+
+\section{항등식 증명}
+포물선의 정의에 의해, \(\Seg{BP}=\Seg{PH}\)이므로 다음이 성립한다.
+\begin{align*}
+|\Ray{BP}|^2=&(-\vec{b}+\vec{p})^2=|\vec{b}|^2-2\vec{b}\cdot\vec{p}+|\vec{p}|^2=1-2\vec{b}\cdot\vec{p}+|\vec{p}|^2 \\
+=&|\Ray{PB}|^2=|\vec{p}|^2-2(\vec{a}\cdot\vec{p})^2+(\vec{a}\cdot\vec{p})^2|\vec{a}|^2=|\vec{p}|^2-2(\vec{a}\cdot\vec{p})^2+(\vec{a}\cdot\vec{p})^2
+\end{align*}
+식을 변형하면 원하는 결과를 얻는다.
+\begin{align}\label{identity}(\vec{p}\cdot\vec{a})^2-2(\vec{p}\cdot\vec{b})+1=0\end{align}
+
+\section{\(\theta\) 구하기}
+이 문제를 해결하는 방법에는 여러 가지가 있지만, 여기에서는 벡터만을 사용하는 방법을 다루겠다.
+
+\(\Seg{OP}\)가 \(\angle AOB\)를 이등분한다는 조건에 주목하자. \(\Seg{OA}=\Seg{OB}=1\)이기 때문에, \(\Ray{OP}\)는 \(\Ray{OA}\)와 \(\Ray{OB}\)의 합의 실수배로 나타낼 수 있다. 따라서, \(\vec{p}\)를 다음과 같이 나타낼 수 있다.
+\[\vec{p}=t(\vec{a}+\vec{b})\]
+문제 조건에 의해 \(|\vec{p}|=2\)이므로, 다음이 성립한다.
+\[|\vec{p}|^2=t^2(|\vec{a}|^2+2\vec{a}\cdot\vec{b}+|\vec{b}|^2)=t^2(2+2\vec{a}\cdot\vec{b})=4\]
+식을 정리하면 다음과 같다.
+\begin{align}\label{length_relation}t^2(\vec{a}\cdot\vec{b}+1)=2\end{align}
+한편, (\ref{identity})에 \(\vec{p}\)의 정의식을 대입하면 다음과 같은 식을 얻는다.
+\begin{align*}
+\left[t(\vec{a}+\vec{b})\cdot\vec{a}\right]^2-2\left[t(\vec{a}+\vec{b})\cdot\vec{b}\right]+1&=\left[t(1+\vec{a}\cdot\vec{b})\right]^2-2\left[t(\vec{a}\cdot\vec{b}+1)\right]+1 \\
+&=\left[t(1+\vec{a}\cdot\vec{b})-1\right]^2=0
+\end{align*}
+따라서, 다음과 같은 관계식을 얻을 수 있고
+\begin{align}\label{identity_relation}t(1+\vec{a}\cdot\vec{b})=1\end{align}
+(\ref{length_relation}), (\ref{identity_relation})의 관계를 통해 \(t=2\)임을 알 수 있다.
+여기서 \(\Seg{OP}=2\)임을 이용하면
+\[|\vec{p}|^2=t^2(|\vec{a}|^2+2\vec{a}\cdot\vec{b}+|\vec{b}|^2)=4(2+2\vec{a}\cdot\vec{b})=4\]
+\(\vec{a}\cdot\vec{b}=|\vec{a}||\vec{b}|\cos\theta=-1\)이고, \(\cos\theta=-\dfrac{1}{2}\)이므로 \(\theta=\dfrac{2\pi}{3}\)이다.
+
+\end{document}

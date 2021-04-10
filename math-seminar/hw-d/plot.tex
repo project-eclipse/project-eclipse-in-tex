@@ -1,0 +1,30 @@
+\definecolor{qqwuqq}{rgb}{0,0.39215686274509803,0}
+\definecolor{uuuuuu}{rgb}{0.26666666666666666,0.26666666666666666,0.26666666666666666}
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1.5cm,y=1.5cm]
+\clip(-3,-1.1) rectangle (3,2);
+\draw[line width=1pt,color=qqwuqq,fill=qqwuqq,fill opacity=0.10000000149011612] (2.389020181518927,-0.7494503531228769) -- (2.1384705346418036,-0.7494503531228769) -- (2.1384705346418036,-1) -- (2.389020181518927,-1) -- cycle; 
+\draw [shift={(-2,-1)},line width=1pt,color=qqwuqq,fill=qqwuqq,fill opacity=0.10000000149011612] (0,0) -- (0:0.3543307086614173) arc (0:45:0.3543307086614173) -- cycle;
+\draw [samples=50,rotate around={0:(0,0)},xshift=0cm,yshift=0cm,line width=1pt,domain=-8:8)] plot (\x,{(\x)^2/2/2});
+\draw [line width=1.5pt,domain=-3:3] plot(\x,{(-1-0*\x)/1});
+\draw [->,line width=1pt] (-2,-1) -- (0,1);
+\draw [->,line width=1pt] (-2,-1) -- (0.83,-1);
+\draw [->,line width=1pt] (0,1) -- (2.389020181518927,1.4268543569261816);
+\draw [->,line width=1pt] (2.389020181518927,1.4268543569261816)-- (2.389020181518927,-1);
+\draw [->,line width=1pt] (-2,-1) -- (2.3890201815189265,1.4268543569261816);
+\begin{scriptsize}
+\draw [fill=black] (0,1) circle (2pt);
+\draw[color=black] (0.09448818897637795,1.1802184466019414) node {$B$};
+\draw [fill=black] (-2,-1) circle (2pt);
+\draw[color=black] (-2.1,-0.8161407766990291) node {$O$};
+\draw [fill=black] (0.83,-1) circle (2pt);
+\draw[color=black] (0.9212598425196851,-0.8161407766990291) node {$A$};
+\draw[color=black] (-1.4,-0.1) node {$\vec{b}$};
+\draw[color=black] (-0.5433070866141732,-0.8) node {$\vec{a}$};
+\draw [fill=black] (2.389020181518927,1.4268543569261816) circle (2pt);
+\draw[color=black] (2.3,1.6134708737864072) node {$P$};
+\draw [fill=uuuuuu] (2.389020181518927,-1) circle (2pt);
+\draw[color=uuuuuu] (2.6,-0.833131067961165) node {$H$};
+\draw[color=black] (0.20078740157480315,0.4) node {$\vec{p}$};
+\draw[color=qqwuqq] (-1.5,-0.88) node {$\theta$};
+\end{scriptsize}
+\end{tikzpicture}
