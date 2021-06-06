@@ -1,5 +1,5 @@
 \documentclass{scrartcl}
-\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[margin=3cm]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -8,6 +8,7 @@
 \usepackage{fontspec}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{kotex}
 \usepackage{mathrsfs}
 \usepackage{mathtools}
 \usepackage{pgf,tikz,pgfplots}
@@ -27,7 +28,7 @@
 \usetikzlibrary{arrows}
 \newtheorem{theorem}{Theorem}
 
-\setmainfont{Noto Serif CJK KR}
+\setmainhangulfont[ItalicFont={*},ItalicFeatures={FakeSlant=.22}]{Noto Serif CJK KR}
 \setsansfont{NanumSquare}
 \newfontfamily\sectionfont{NanumSquare Bold}
 \addtokomafont{section}{\sectionfont\mdseries}
