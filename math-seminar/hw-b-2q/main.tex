@@ -1,0 +1,153 @@
+\documentclass{scrartcl}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+\usetikzlibrary{automata,positioning}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{수학세미나 2쿼터 HW B 풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+시작하기 전에, 문제의 상황이 마르코프 연쇄라는 것을 알면 도움이 된다. 이떤 상태에서 그 다음 상태로 갈 때의 확률분포가 과거와는 상관없이 현재 상태에 의해서만 결정된다는 뜻이다.\footnote{마르코프 연쇄는 여러 분야에 응용되기 때문에 아직 수세미/수사통/확통 발표 주제를 못잡았다면 이걸로 하는 것도 나쁘지 않을 것이다.}
+
+여기까지 설명하면 2학년 심화 미분적분학에서 본 행렬 곱을 이용한 풀이가 떠오를 것이다. 애석하게도, 여기서는 상태가 5개이기 때문에 행렬도 5-by-5 행렬이고, 계산이 복잡하기 때문에 2번부터 풀기가 매우 어려워진다.\footnote{행렬을 대각화해서 거듭제곱하겠다는 것을 굳이 말리지는 않겠지만... 그런 건 사람이 아니라 컴퓨터가 하는 짓이다.} 따라서 행렬 대신에 좀 더 고등학교 교육과정에서 쓸 만한 풀이법을 사용하자.
+
+다음 그림은 이 문제의 상황을 그림으로 나타낸 것이다. 각 화살표에 쓰인 숫자는 그 화살표를 따라가서 상태가 변화할 확률을 의미한다.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[state] (one) {1};
+    \node[state, right=of one] (two) {2};
+    \node[state, right=of two] (three) {3};
+    \node[state, right=of three] (four) {4};
+    \node[state, right=of four] (five) {5};
+    
+    \draw[every loop]
+      (one) edge[loop left] node {1} (one)
+      (two) edge[bend right, auto=right] node {1/3} (one)
+      (three) edge[bend right, auto=right] node {1/3} (two)
+      (four) edge[bend right, auto=right] node {1/3} (three)
+      (two) edge[bend right, auto=left] node {2/3} (three)
+      (three) edge[bend right, auto=left] node {2/3} (four)
+      (four) edge[bend right, auto=left] node {2/3} (five)
+      (five) edge[loop right] node {1} (five);
+  \end{tikzpicture}
+\end{figure}
+
+\section{2초, 3초 후에 \(K\)에 도달할 확률}
+위에 그려놓은 그림을 보면서 열심히 계산해 주면 된다. 우선 1초 후에 도달할 확률인 \(P_1(K)\)부터 계산하면 다음과 같다. 주어진 상태에서 화살표의 `머리'와 연결된 다른 상태들의 확률을 보면 된다.
+\[P_1(1)=0,\,P_1(2)=\frac{1}{3},\,P_1(3)=0,\,P_1(4)=\frac{2}{3},\,P_1(5)=0\]
+이제 2초 후의 확률을 계산해야 하는데, 예로 \(P_2(1)\)를 들어 설명하겠다. 1을 가리키는 화살표는 1, 2에 연결되기 때문에, \(P_2(1)\)은 다음과 같이 계산 가능하다.
+\[P_2(1)=P_1(1)+\frac{1}{3}P_1(2)=1\times 0+\frac{1}{3}\times\frac{1}{3}=\frac{1}{9}\]
+비슷한 방식으로 다른 상태들에 대해서 확률을 계산하면 다음과 같다.\footnote{여기서는 그렇게 하지 않았지만, 혼자 계산하는 상황에서는 이렇게 확률을 구한 다음에 더해서 1이 나오는지 체크하는 것도 좋을 것이다.}
+\[\boxed{P_2(1)=\frac{1}{9},\,P_2(2)=0,\,P_2(3)=\frac{4}{9},\,P_2(4)=0,\,P_2(5)=\frac{4}{9}}\]
+이제 3초 후의 확률을 구해 보자. 이번에는 예로 \(P_3(1)\)을 들어 설명할 것이다. 2를 가리키는 화살표는 3에 연결되기 때문에, 다음과 같이 계산할 수 있다.
+\[P_3(2)=\frac{1}{3}P_2(3)=\frac{4}{27}\]
+비슷한 방식으로 계산하면 다음과 같이 구할 수 있다.
+\[\boxed{P_3(1)=\frac{1}{9},\,P_3(2)=\frac{4}{27},\,P_3(3)=0,\,P_3(4)=\frac{8}{27},\,P_3(5)=\frac{4}{9}}\]
+
+\section{일반화하여 확률 구하기}
+문제 상황이 마르코프 연쇄라는 것이 중요하다고 했는데, 여기서 이를 사용해 보자. \(n+1\)초에서 어떤 점 \(K\)에 있을 확률은 \(n\)초에서의 위치에만 영향을 받으므로, 다음과 같은 점화식을 얻을 수 있다.
+\begin{align}
+P_{n+1}(1)&=P_n(1)+\frac{1}{3}P_n(2) \\
+\label{two}P_{n+1}(2)&=\frac{1}{3}P_n(3) \\
+\label{three}P_{n+1}(3)&=\frac{2}{3}P_n(2)+\frac{1}{3}P_n(4) \\
+\label{four}P_{n+1}(4)&=\frac{2}{3}P_n(3) \\
+P_{n+1}(5)&=\frac{2}{3}P_n(4)+P_n(5)
+\end{align}
+이제 점화식을 풀어야 한다. (\ref{two}), (\ref{three}), (\ref{four})의 식을 눈여겨보자. 이 세 개 식에서 상태 2, 3, 4만 알면 된다. (\ref{three})에 (\ref{two}), (\ref{four})을 대입하면 다음을 얻는다.
+\[P_{n+2}(3)=\frac{2}{3}P_{n+1}(2)+\frac{1}{3}P_{n+1}(4)=\frac{2}{9}P_n(3)+\frac{2}{9}P_n(3)=\frac{4}{9}P_n(3)\]
+한편, \(P_0(3)=1,\,P_1(3)=0\)이므로 다음과 같이 \(P_n(3)\)를 구한다.
+\[P_n(3)=\begin{cases}
+           0 & (n\text{이 홀수})\\
+           \left(\frac{4}{9}\right)^\frac{n}{2} & (n\text{이 짝수})
+         \end{cases}
+\]
+이를 이용하면 \(P_n(2),\,P_n(4)\)는 쉽게 구할 수 있다.
+\[P_n(2)=\begin{cases}
+           \frac{1}{3}\left(\frac{4}{9}\right)^\frac{n-1}{2} & (n\text{이 홀수}) \\
+           0 & (n\text{이 짝수}) \\
+         \end{cases},\,P_n(4)=\begin{cases}
+                                \frac{2}{3}\left(\frac{4}{9}\right)^\frac{n-1}{2} & (n\text{이 홀수}) \\
+                                0 & (n\text{이 짝수}) \\
+                              \end{cases}
+\]
+애석하게도 \(P_n(1),\,P_n(5)\)는 계산이 복잡하다. 우선 \(P_n(1)\)부터 해 보자.\footnote{여기서 \(\left\lfloor x\right\rfloor\)은 \(x\)보다 크지 않은 최대의 정수를 의미한다. 이 기호를 쓰지 않았으면 또 경우를 나누었어야 할 것이다.} 사실 이렇게 나오는 이유는 꽤나 간단한데, 그냥 0과 등비수열이 번갈아 나오기 때문에 홀수항만 모아 더한 것이다.
+\[P_n(1)=0+\sum^{n-1}_{k=1}\frac{1}{3}P_n(2)=\frac{1}{9}\times\frac{1-\left(\dfrac{4}{9}\right)^{\left\lfloor\frac{n}{2}\right\rfloor}}{1-\dfrac{4}{9}}=\frac{1}{5}\left\{1-\left(\dfrac{4}{9}\right)^{\left\lfloor\frac{n}{2}\right\rfloor}\right\}\]
+비슷한 방식으로 \(P_n(5)\)도 계산할 수 있다.
+\[P_n(5)=0+\sum^{n-1}_{k=1}\frac{2}{3}P_n(4)=\frac{4}{9}\times\frac{1-\left(\dfrac{4}{9}\right)^{\left\lfloor\frac{n}{2}\right\rfloor}}{1-\dfrac{4}{9}}=\frac{4}{5}\left\{1-\left(\dfrac{4}{9}\right)^{\left\lfloor\frac{n}{2}\right\rfloor}\right\}\]
+정리하면 다음과 같다.
+\begin{align*}&P_n(1)=\frac{1}{5}\left\{1-\left(\dfrac{4}{9}\right)^{\left\lfloor\frac{n}{2}\right\rfloor}\right\},\,P_n(2)=\begin{cases}
+           \frac{1}{3}\left(\frac{4}{9}\right)^\frac{n-1}{2} & (n\text{이 홀수}) \\
+           0 & (n\text{이 짝수}) \\
+         \end{cases},\,P_n(3)\begin{cases}
+           0 & (n\text{이 홀수})\\
+           \left(\frac{4}{9}\right)^\frac{n}{2} & (n\text{이 짝수})
+         \end{cases}\\
+&P_n(4)=\begin{cases}
+                                \frac{2}{3}\left(\frac{4}{9}\right)^\frac{n-1}{2} & (n\text{이 홀수}) \\
+                                0 & (n\text{이 짝수}) \\
+                              \end{cases},\,P_n(5)=\frac{4}{5}\left\{1-\left(\dfrac{4}{9}\right)^{\left\lfloor\frac{n}{2}\right\rfloor}\right\}\end{align*}
+
+\section{위치의 평균}
+위치의 좌표를 확률변수로 나타내었을 때의 평균 또는 기댓값은 다음과 같이 계산할 수 있다.
+\begin{align*}
+E_{2m}&=P_{2m}(1)+2P_{2m}(2)+3P_{2m}(3)+4P_{2m}(4)+5P_{2m}(5) \\
+&=\frac{1}{5}\left\{1-\left(\dfrac{4}{9}\right)^{m}\right\}+3\left(\frac{4}{9}\right)^m+4\left\{1-\left(\dfrac{4}{9}\right)^m\right\} \\
+&=\boxed{\frac{21}{5}-\frac{6}{5}\left(\dfrac{4}{9}\right)^m}
+\end{align*}
+극한도 간단하게 계산할 수 있다.
+\[\lim_{m\to\infty}E_{2m}=\lim_{m\to\infty}\left\{\frac{21}{5}-\frac{6}{5}\left(\dfrac{4}{9}\right)^m\right\}=\boxed{\frac{21}{5}}\]
+\end{document}
