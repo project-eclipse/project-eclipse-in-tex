@@ -1,0 +1,163 @@
+\documentclass{scrartcl}
+\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{pstricks}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{고전역학 오리엔테이션 프린트 문제풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainfont{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+\begin{document}
+\maketitle
+
+\section{탄성 충돌하는 진자}
+운동량 보존 법칙과 탄성충돌의 정의를 사용하여 해결할 수 있는 문제이다. 우선 \(v_A\)를 구해야 하는데, 이는 에너지 보존 법칙을 사용하여 구할 수 있다.
+\[\frac{1}{2}m{v_A}^2=mgh\longrightarrow v_A=\sqrt{2gh}\]
+운동량 보존 법칙에 의해, 다음 식이 성립한다. 충돌 직후의 A의 속도를 \({v_A}'\)로 두었다.
+\begin{align}\label{momentum}mv_A=m{v_A}'+4mv_B\end{align}
+여기서부터 푸는 방법이 두 가지로 나뉜다.
+
+\subsection{탄성충돌의 정의 사용}
+두 물체가 탄성충돌하면, 운동량 뿐만 아니라 운동에너지도 보존되므로, 다음 식이 성립한다.
+\[\frac{1}{2}m{v_A}^2=\frac{1}{2}m{{v_A}'}^2+\frac{1}{2}\cdot 4m\cdot{v_B}^2\]
+좀 더 정리하면 다음과 같이 쓸 수 있다.
+\begin{align}\label{energy}m{v_A}^2=m{{v_A}'}^2+4m{v_B}^2\end{align}
+(\ref{momentum}), (\ref{energy})의 식을 연립하면 다음을 얻고,
+\begin{align}\label{velocity_rel}v_B=\frac{m{v_A}^2-m{{v_A}'}^2}{mv_A-m{v_A}'}=v_A+{v_A}'\end{align}
+이를 다시 (\ref{momentum})의 식에 대입하면
+\[mv_A=m{v_A}'+4m(v_A+{v_A}')\]
+\({v_A}',\,v_B\)를 구할 수 있다.
+\[{v_A}'=-\frac{3}{5}v_A=-\frac{3\sqrt{2gh}}{5},\,v_B=\frac{2}{5}v_A=\frac{2\sqrt{2gh}}{5}\]
+
+\subsection{반발계수 이용}
+물체 A, B의 충돌 전 속도가 각각 \(v_A,\,v_B\)이고, 충돌 후 속도가 \({v_A}',\,{v_B}'\)라 하면 반발계수는 다음과 같이 정의된다.
+\[e=-\frac{{v_A}'-{v_B}'}{v_A-v_B}\]
+(\ref{energy})의 식처럼 에너지 보존을 직접 사용하는 대신, 반발 계수를 사용하면 1차식을 얻을 수 있다.
+\[-\frac{{v_A}'-v_B}{v_A}=1\]
+따라서 \(v_A+{v_A}'=v_B\)이고, (\ref{velocity_rel})의 식을 한번에 얻을 수 있다. 나머지는 탄성충돌의 정의를 사용하는 방법과 같이 풀이를 진행하면 된다.
+
+\section{도르래로 묶인 물체들의 운동}
+앳우드 머신을 눕히고 마찰력을 부여한 형태라고 할 수 있다. 우선 자유물체도를 그리자. 물체 A에 대해서는 다음과 같다.
+\begin{figure}[H]
+\centering
+\def\svgwidth{0.35\columnwidth}
+\input{fbd2-A.pdf_tex}
+\end{figure}
+따라서 A의 운동방정식은 다음과 같다. A의 가속도를 \(a_A\)로 두었다.
+\[m_A a_A=f_A-T=\mu_{s,\text{AB}} N_A-T=1\un{N}-T\]
+B의 자유물체도를 그리자.
+\begin{figure}[H]
+\centering
+\def\svgwidth{0.7\columnwidth}
+\input{fbd2-B.pdf_tex}
+\end{figure}
+여기서 B의 운동방정식을 유도하면 다음과 같다. B의 가속도를 \(a_B\)로 두었다.
+\[m_B a_B=F-f_B-f-T=F-\mu_{s,\text{AB}} F_{BA}-\mu_{s,\text{floor}}N_B-T=4\un{N}-T\]
+한편, 두 물체의 가속도 크기는 같고, 방향은 다르므로
+\[-\frac{1\un{N}-T}{1\un{kg}}=\frac{4\un{N}-T}{2\un{kg}}\longrightarrow T=2\un{N}\]
+따라서 구하는 가속도는 \(a_B=1\un{m/s^2}\)이다.
+
+\section{통 속의 자석}
+A의 자유물체도를 그리자. \(F_B\)를 자기력으로 두었다.
+\begin{figure}[H]
+\centering
+\def\svgwidth{0.4\columnwidth}
+\input{fbd3-A.pdf_tex}
+\end{figure}
+A는 움직이지 않으므로, 작용하는 합력은 0이다. B의 자유뮬체도도 그려보자.
+\begin{figure}[H]
+\centering
+\def\svgwidth{0.4\columnwidth}
+\input{fbd3-B.pdf_tex}
+\end{figure}
+B는 정지해 있으므로 다음 운동방정식을 만족한다.
+\[F_B-mg-T=0\]
+이를 바꾸어 쓰면 \(T\)를 구할 수 있다.
+\[T=F_B-mg\]
+한편, 통이 자석들과 중력에 의해 받는 힘은 \(F_B+mg+Mg-T\)이므로, 바닥으로부터 \(F_B+(m+M)g-T\)만큼의 힘을 받는다. 저울의 눈금은 저울이 받는 힘과 같고, 이는 통이 받는 수직항력과 같다. 따라서 저울의 눈금은 다음과 같다.
+\[F_B+(m+M)g-T=F_B+(m+M)g-(F_B-mg)=(2m+M)g\]
+결국 저울의 눈금은 통과 자석의 무게와 같고, A의 자력과는 아무 상관이 없다. 또한, 통이 저울로부터 받는 수직항력도 지국가 통을 당기는 힘과, A가 통을 누르는 힘의 합과 평형이 아님을 알 수 있다.
+
+\section{겉보기 중력과 두 물체}
+로켓은 비관성계이므로 가속운동에 의한 가속도를 고려하여야 한다. 외부 관찰자 시점이나 내부 관찰자 시점 둘 중 하나를 선택하면 되는데, 여기에서는 내부 관찰자 시점에서 문제를 풀이해 보자. 우주선이 \(3g\)로 가속하므로, 내부 관찰자 시점에서는 그만큼 가속도가 추가된 것으로 보인다. 따라서 계산을 할 때, \(g\) 대신 \(4g\)로 놓고 힘을 계산하면 될 것이다. 자유물체도를 직접 그리면 알겠지만\footnote{이정도 그려줬으면 여러분도 그릴 수 있어야 한다. 그리고 자유물체도 그리는 것이 가장 고생스러운 일이기도 하다...} 두 물체 사이의 마찰력이 \(f\)일 때 \(m_1\)짜리 물체의 운동방정식은 다음과 같다. 이 방정식은 \(m_1\)짜리 물체가 \(m_2\)짜리 물체에 대해 운동하지 않는 경우를 가정한 것이다.
+\[m_1 a=f-\mu_s m_1 g\]
+\(m_2\)짜리 물체의 운동방정식은 다음과 같다.
+\[m_2 a=F-f\]
+두 물체가 함께 운동한다면 가속도가 같아야 하므로, 최대 힘의 크기 \(F_\text{max}\)를 구할 수 있다.
+\[\frac{\mu_s m_1 g}{m_1}=\frac{F_\text{max}-\mu_s m_1 g}{m_2}\longrightarrow F_\text{max}=\left( \frac{m_2}{m_1}+1 \right)\mu_s m_1 g=8m_1 g=8mg\]
+
+\section{미끄러지는 물체 붙잡기}
+자유물체도는 직접 그려보자. 물체에 작용하는 힘은 중력과 마찰력, 수직항력과 물체를 미는 힘이다. 물체를 수평 방향으로 미는 힘은 수직 항력 \(N\)에 의해 상쇄되므로, 여기서는 \(F\)의 수평 방향 \(F\sin\theta\)와 마찰력 \(f\), 중력 \(mg\)에 의해 물체의 운동이 결정될 것이다. 이제 경우를 나누어 보자. 편의상 위쪽 방향이 +인 것으로 잡았다.
+
+\subsection{\(F\sin\theta\)가 아래쪽 방향인 경우}
+언뜻 생각하면 당연히 물체가 미끄러질 것 같지만, 그렇다고 해서 엄청 자명한 것은 아니다. 예를 들어 마찰력이 충분히 크다면 미끄러지지 않을수도 있다. \(\tan\theta>\mu\)이므로, 양변에 \(F\cos\theta\)를 곱하면 다음과 같다.\footnote{\(F\cos\theta\)가 음수인 경우를 생각할 수도 있는데, 이때는 물체를 `당기는' 상황이므로 물체가 그냥 떨어질 것이다.}
+\[F\sin\theta>\mu F\cos\theta\]
+\(\mu F\cos\theta\)는 명백히 양수이므로, 애초에 위쪽 방향이기 때문에 이러한 경우는 존재할 수 없다.
+
+\subsection{\(F\sin\theta\)가 위쪽 방향인 경우}
+\subsubsection{\(F\sin\theta<mg\)인 경우}
+이때 \(f\)는 위쪽으로 작용하고, 최소로 힘이 작용하는 상황에서 운동방정식은 다음과 같다.
+\[F_\text{min}\sin\theta+f=F_\text{min}\sin\theta+\mu F_\text{min}\cos\theta=mg\longrightarrow F_\text{min}=\frac{mg}{\sin\theta+\mu\cos\theta}\]
+또한, 이 경우에는 \(F<\dfrac{mg}{\sin\theta}\)이다.
+
+\subsubsection{\(F\sin\theta=mg\)인 경우}
+이미 위로 미는 힘이 중력을 상쇄하는 상황이므로 \(f\)는 작용하지 않고, 물체는 멈춘 상태를 유지한다.
+
+\subsubsection{\(F\sin\theta>mg\)인 경우}
+\(f\)는 아래쪽으로 작용하고, 최대로 힘이 작용할 때 운동방정식은 다음과 같다.
+\[f+mg=\mu F_\text{max}\cos\theta+mg=F_\text{max}\sin\theta\longrightarrow F_\text{max}=\frac{mg}{\sin\theta-\mu\cos\theta}\]
+또한, 이 경우에는 \(F>\dfrac{mg}{\sin\theta}\)이다.
+
+앞서 구한 모든 경우들을 합치면, \(F\)의 범위는 다음과 같다.
+\[\frac{mg}{\sin\theta+\mu\cos\theta}\leq F\leq\frac{mg}{\sin\theta-\mu\cos\theta}\]
+
+\end{document}
