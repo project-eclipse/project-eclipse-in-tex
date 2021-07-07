@@ -1,0 +1,113 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{수학세미나 문제 I 풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont[ItalicFont={*},ItalicFeatures={FakeSlant=.22}]{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+\newcommand{\combi}[2]{{}_{#1}\mathrm{C}_{#2}}
+\newcommand{\repcombi}[2]{{}_{#1}\mathrm{H}_{#2}}
+
+\begin{document}
+\maketitle
+
+\section{E-E-N 패턴으로 이동하는 경우}
+\subsection{로그값 구하기}
+문제를 풀기 전에, \((a,b)\)라는 위치에 적힌 수가 \(2^{-a-b}\)라는 것을 아는 것이 특히 중요하다. \(A=2^{-59}\)이고, \(B=2^{=60}\)이므로 \(\log_2{AB}=-119\)이다.
+
+\subsection{\texorpdfstring{\(2^{-2020}\)}{2\^(-2020)}이 적힌 점}
+2020학년도 면접에 출제되었을 것으로 예상되는 문제이다. E-E-N 패턴으로 움직이니까, 점의 좌표는 음이 아닌 정수 \(n\)과 \(0\leq m\leq 2\)인 정수 \(m\)에 대해 다음과 같이 나타낼 수 있다.
+\begin{align*}
+  n(2,1)+m(1,0)
+\end{align*}
+따라서 \(3n+m=2020\)을 만족시키는 \(n\)과 \(m\)을 구하면 되고, 구하는 좌표는 \((1347, 673)\)임을 알 수 있다.
+
+\subsection{부등식 풀기}
+E-E-N 패턴으로 움직이기 때문에, 점들의 궤적을 \(y=\frac{1}{2}x\)라고 볼 수 있다. 아래 부등식을 만족하는 \(x\)좌표들을 가지는 점들을 보면 된다.
+\begin{align*}
+  x^2-\frac{47}{2}x+\frac{125}{2}\leq\frac{1}{2}x
+\end{align*}
+부등식을 만족시키는 가장 작은 정수가 3이므로, 12에 대해 대칭시키면 가장 큰 정수는 21이다. 이제 3부터 21까지 각각 \(y\)좌표를 계산해야 할 것 같지만 그렇게 하면 오히려 헷갈린다. 가장 쉬운 방법은 \(x\)좌표가 3인 점이 \((3, 1)\)이고 \(2^{-4}\)가 적혀 있으며, \(x\)좌표가 21인 점이 \((21, 10)\)이고 \(2^{-31}\)이 적혀 있다는 사실을 이용한다. 그 `사이'에 있는 점들은 \(2^{-1}\)씩 곱해지므로, 결국 구해야 하는 값 \(t\)는 초항이 \(2^{-4}\), 말항이 \(2^{-31}\)이고 공비가 \(2^{-1}\)인 등비수열의 합이다.
+\begin{align*}
+  t=\frac{2^{-4}\left(1-\dfrac{1}{2^{28}}\right)}{1-\dfrac{1}{2}}=2^{-3}-2^{-31}
+\end{align*}
+따라서 답은 \(1-8t=2^{-28}\)이다.
+
+\section{\texorpdfstring{\((3, 3)\)}{(3, 3)} 위치에서 출발하는 경우}
+\subsection{가능한 \texorpdfstring{\(k\)}{k}값}
+원점에서 \((3, 3)\)으로 가는 경로는 짧아야 6이므로, \(k\)는 6 이상의 자연수이다. 또한, 적절히 위로 갔다가 아래로 가는 단계를 추가해 주면 경로의 길이가 2씩 늘어나므로, \(k\)의 값으로 6 이상 2020 이하의 짝수가 가능하다. 이제 궁금해지는 것은 홀수 길이 경로가 가능한지이다. 결론부터 말하면 불가능하다. N, S, E, W 방향으로 각각 \(a,\,b,\,c,\,d\)번 움직였다고 가정하자. 이때 최종적으로 도달하는 지점은 다음과 같이 쓸 수 있다.
+\begin{align*}
+  (c-d,a-b)
+\end{align*}
+도착 지점이 \((3, 3)\)이므로, 다음이 성립한다.
+\begin{align*}
+  c-d=3,\,a-b=3
+\end{align*}
+따라서 \(c,\,d\)와 \(a,\,b\)는 각각 홀짝성이 다르다. 하나가 홀수라면 나머지는 짝수인 것이다. 그런데 \(k=a+b+c+d\)이므로, \(c+d\)와 \(a+b\)가 모두 홀수임을 생각하면 \(k\)는 짝수일 수밖에 없고, 따라서 \(k\)는 6 이상 2020 이하의 짝수이고, 총 1008개이다.
+
+\subsection{이동 경로의 수}
+경로의 길이가 8이기 때문에, 두 가지 경우로 나눌 수 있다.
+
+\subsubsection{S방향으로 한 번 움직인 경우}
+E방향으로 3번 움직이므로, 움직인 경로를 E, W, N, S로 나타내면 다음과 같을 것이다.
+\begin{align*}
+  x_1\|\mathrm{E}\|x_2\|\mathrm{E}\|x_3\|\mathrm{E}\|x_4
+\end{align*}
+\(x_1, \dots, x_4\)는 N, S로 나타낸 문자열이고, \(\|\)은 문자열을 합치는 것을 의미한다. 예를 들어 \(x=\mathrm{NE}\)일 때 \(x\|\mathrm{WS}=\mathrm{NEWS}\)이다. 여기서 중요한 점은 \(x_1,\dots,x_4\) 모두 S와 N을 같이 포함할 수 없다는 것이다. 만약 그러한 경우, 같은 지점을 2번 지나기 때문이다. 따라서 이 경우에서 구하는 경우의 수는, \(x_1, \dots, x_4\)중 한 개에 S가 있고 나머지는 N 4개를 나누어 가지므로
+\begin{align*}
+  4\times\repcombi{3}{4}=60
+\end{align*}
+
+\subsubsection{W방향으로 한 번 움직인 경우}
+\(y=x\)에 대해 대칭시키면 앞서 구한 경우와 완전히 똑같다. 따라서 최종적으로 구하는 답은 \(2\times 60=120\)이다.
+
+\end{document}
