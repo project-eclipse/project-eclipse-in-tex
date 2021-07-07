@@ -1,0 +1,126 @@
+\documentclass{scrartcl}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{blindtext}
+\usepackage{datetime}
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{kotex}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{pgf,tikz,pgfplots}
+
+\usepackage[headsepline]{scrlayer-scrpage}
+\newcommand{\doctitle}{수학세미나 2쿼터 HW D 풀이}
+\clearpairofpagestyles
+\ohead{\thepage}
+\ihead{\doctitle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+\pgfplotsset{compat=1.15}
+\usetikzlibrary{arrows}
+\newtheorem{theorem}{Theorem}
+
+\setmainhangulfont[ItalicFont={*},ItalicFeatures={FakeSlant=.22}]{Noto Serif CJK KR}
+\setsansfont{NanumSquare}
+\newfontfamily\sectionfont{NanumSquare Bold}
+\addtokomafont{section}{\sectionfont\mdseries}
+\addtokomafont{subsection}{\sectionfont\mdseries}
+\addtokomafont{subsubsection}{\sectionfont\mdseries}
+\addtokomafont{paragraph}{\sectionfont\mdseries}
+\addtokomafont{title}{\sectionfont\mdseries}
+\addtokomafont{author}{\sectionfont}
+\title{\doctitle}
+\author{Project Eclipse (손량)}
+\date{Last compiled on: \today, \currenttime}
+
+\newcommand{\Lim}[1]{\lim_{#1\to\infty}}
+\newcommand{\para}{\mathbin{\!/\mkern-5mu/\!}}
+\newcommand{\Seg}[1]{\overline{#1}}
+\newcommand{\Line}[1]{\overleftrightarrow{#1}}
+\newcommand{\Ray}[1]{\overrightarrow{#1}}
+\newcommand{\infsum}[1]{\sum^\infty_{#1}}
+\newcommand{\mat}[3]{\begin{pmatrix}
+#1_{11} & #1_{12} & \cdots & #1_{1#3} \\
+#1_{21} & #1_{22} & \cdots & #1_{2#3} \\
+\vdots & \vdots & \ddots & \vdots \\
+#1_{#2 1} & #1_{#2 2} & \cdots & #1_{#2#3} \\
+\end{pmatrix}}
+\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+\newcommand{\combi}[2]{{}_{#1}\mathrm{C}_{#2}}
+
+\begin{document}
+\maketitle
+
+\section{\texorpdfstring{\(n\)}{n} 두 번 건너뛰기}
+점화식을 쓰지 말라는 조건도 걸려 있으니, 선택권이 딱히 없다. 무식하게 계산하자... 라고 할 뻔. 무식하게 계산하지 않고도 풀 수 있지만, 이미 작성한 \LaTeX 코드가 아까우므로 그냥 두었다. 좌변은 다음과 같다.
+\begin{align}\label{prob1-lhs}
+  \combi{n+2}{r+1}=\frac{(n+2)!}{(n-r+1)!(r+1)!}
+\end{align}
+한편, 우변을 계산하면
+\begin{align}
+  &\combi{n}{r-1}+2\combi{n}{r}+\combi{n}{r+1} \nonumber \\
+  &=\frac{n!}{(n-r+1)!(r-1)!}+\frac{2\times n!}{(n-r)!r!}+\frac{n!}{(n-r-1)!(r+1)!} \nonumber \\
+  &=\frac{n!\times r(r+1)}{(n-r+1)!(r+1)!}+\frac{2\times n!\times(n-r+1)(r+1)}{(n-r+1)!(r+1)!}+\frac{n!\times(n-r)(n-r+1))}{(n-r+1)!(r+1)!} \nonumber \\
+  &=\frac{n!\times\{r^2+r+2(r+1)(n-r+1)+(n-r)(n-r+1)\}}{(n-r+1)!(r+1)!} \nonumber \\
+  &=\frac{n!\times\{r^2+r+(n+r+2)(n-r+1)\}}{(n-r+1)!(r+1)!)} \nonumber \\
+  \label{prob2-rhs} &=\frac{n!\times(n+2)(n+1)}{(n-r+1)!(r+1)!}=\frac{(n+2)!}{(n-r+1)!(r+1)!}
+\end{align}
+(\ref{prob1-lhs})의 식과 (\ref{prob2-rhs})의 식이 같으므로 원하는 결론을 얻는다.
+
+\subsection{계산하지 않고 증명하기}
+1부터 \(n+2\)까지의 자연수를 포함하는 집합 \(A\)를 생각하자. 이 집합의 부분집합 중 원소가 \(r+1\)개 있는 것은 \(\combi{n+2}{r+1}\)개 있다. 이 부분집합들을 4가지로 분류\footnote{굳이 1과 2를 사용할 필요는 없다.} 수 있다.
+\begin{itemize}
+  \item 1과 2 모두 포함하는 집합
+  \item 1을 포함하고, 2를 포함하지 않는 집합
+  \item 2를 포함하지 않고, 1을 포함하는 집합
+  \item 1과 2 모두 포함하지 않는 집합
+\end{itemize}
+1과 2 모두 포함하는 부분집합의 개수는 \(A-\{1, 2\}\)의 부분집합 중 원소가 \(r-1\)개 있는 것의 개수와 같으므로 \(\combi{n}{r-1}\)개이다. 1과 2 둘 중 오직 하나만\footnote{존 콘웨이 식으로 표현하면 onee이다.} 포함하는 부분집합의 개수는 각각 \(A-\{1\}, A-\{2\}\)의 부분집합 중 원소가 \(r\)개 있는 것의 개수와 같으므로 \(2\combi{n}{r}\)개이다. 마지막으로, 1과 2 모두 포함하지 않는 부분집합의 개수는 \(A-\{1, 2\}\)의 부분집합 중 원소가 \(r+1\)개 있는 겻의 개수와 같으므로 \(\combi{n}{r+1}\)개이다. 결국 이들 모두를 합친 경우의 수는 \(\combi{n+2}{r+1}\)이므로 원하는 결론을 얻는다.
+\begin{align*}
+  \combi{n+2}{r+1}=\combi{n}{r-1}+2\combi{n}{r}+\combi{n}{r+1}
+\end{align*}
+
+\section{Double Counting}
+무식하게 계산하자... 하고 풀려고 했지만 말이 안 되게 계산이 복잡하고, 귀납법을 쓰려고 했지만 그것도 만만치 않다. 여기서 증명해야 하는 식은 조합론에서 매우 유명한 것 중 하나\footnote{유명할 수밖에 없다. 식 자체가 매우 깔끔하면서도 trivial한 것을 다루는 것이 아니기 때문이다.}이다. 사실 이 문제는 생성함수로 매우 간단하게 풀 수 있지만, 우리는 생성함수를 정의하는 방법인 형식 멱급수는커녕 멱급수도 잘 모르는\footnote{혹시 잘 아시는 분이 있다면 무식쟁이가 또 성급히 일반화하는구나 하면서 너그럽게 넘어가기 바란다.} 고등학생이기 때문에 전문 지식이 필요 없는 방법으로 풀이하자.
+
+1부터 \(2n\)까지의 자연수가 있는 집합 \(A=\{1,2,\cdots,2n\}\)를 생각하자. 이 집합의 원소가 \(n\)개인 부분집합 개수는 \(\combi{2n}{n}\)개이다. 이제 \(A\)의 짝수인 원소만 가지는 부분집합 \(B\)와 \(A\)의 홀수인 원소만 가지는 부분집합 \(C\)를 생각하자. \(A\)에서 \(n\)개의 원소를 뽑는 것은, \(0\leq k\leq n\)인 정수 \(k\)에 대해, \(B\)에서 \(k\)개의 원소를 뽑고, \(C\)에서 \(n-k\)개의 원소를 뽑는 경우의 수를 합친 것과 같다. 즉, 다음과 같이 쓸 수 있다.
+\begin{align*}
+  \combi{2n}{n}=\sum_{k=0}^n\combi{n}{k}\times\combi{n}{n-k}
+\end{align*}
+그런데 \(\combi{n}{n-k}=\combi{n}{k}\)니까, 원하는 결론을 얻는다.
+\begin{align*}
+  \combi{2n}{n}=\sum_{k=0}^n{\combi{n}{k}}^2
+\end{align*}
+이러한 풀이 방법을 double counting이라고 한다. 어떤 집합의 원소 개수를 두 가지 방법으로 세서 항등식을 증명하는 것이다.
+
+\section{앞서 증명한 명제 이용하기}
+증명하기 앞서, 다음과 같이 놓자.
+\begin{align*}
+  \combi{n}{0}\,\combi{n}{1}+\combi{n}{1}\,\combi{n}{2}+\cdots+\combi{n}{n-1}\,\combi{n}{n}=X
+\end{align*}
+\(X\)가 식의 우변과 같음을 증명할 것이다. 2번에서 증명한 식에 더해주면 다음과 같다.
+\begin{align*}
+  &{\combi{n}{0}}^2+{\combi{n}{1}}^2+\cdots+{\combi{n}{n}}^2+\combi{n}{0}\,\combi{n}{1}+\combi{n}{1}\,\combi{n}{2}+\cdots+\combi{n}{n-1}\,\combi{n}{n} \\
+  &=\frac{1}{2}{\combi{n}{0}}^2+\frac{1}{2}(\combi{n}{0}+\combi{n}{1})^2+\frac{1}{2}(\combi{n}{1}+\combi{n}{2})^2+\cdots+\frac{1}{2}(\combi{n}{n-1}+\combi{n}{n})^2+\frac{1}{2}{\combi{n}{n}}^2 \\
+  &=\frac{1}{2}{\combi{n+1}{0}}^2+\frac{1}{2}{\combi{n+1}{1}}^2+\frac{1}{2}{\combi{n+1}{2}}^2+\cdots+\frac{1}{2}{\combi{n+1}{n}}^2+\frac{1}{2}{\combi{n+1}{n+1}}^2 \\
+  &=\frac{1}{2}\combi{2n+2}{n+1}=\combi{2n}{n}+X
+\end{align*}
+1번에서 증명한 식을 사용하자.
+\begin{align*}
+  \frac{1}{2}\combi{2n+2}{n+1}&=\frac{1}{2}(\combi{2n}{n-1}+2\combi{2n}{n}+\combi{2n}{n+1}) \\
+  &=\frac{1}{2}(2\combi{2n}{n-1}+2\combi{2n}{n})=\combi{2n}{n-1}+\combi{2n}{n}=\combi{2n}{n}+X
+\end{align*}
+따라서 \(X\)의 값을 구할 수 있고, 원하는 결론을 얻는다,
+\begin{align*}
+  X=\combi{2n}{n-1}=\frac{(2n)!}{(n-1)!(n+1)!}
+\end{align*}
+이 문제도 앞선 문제들처럼 계산을 하지 않고, double counting을 통해 풀 수 있다. 2번 문제와 거의 비슷하므로 독자들에게 연습문제로 남긴다.\footnote{해답이 궁금하다면 박찬우 학생이 정리한 풀이를 보자.}
+\end{document}
